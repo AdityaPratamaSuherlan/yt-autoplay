@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>YouTube Autoplay with Sound</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: black;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+<!-- YouTube API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<div id="player"></div>
+
+<script>
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: '7_tajglm6WY', // ID video YouTube kamu
+      playerVars: {
+        autoplay: 1,
+        controls: 1,
+        mute: 0,
+        rel: 0,
+        showinfo: 0
+      },
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    // Chrome butuh interaksi user untuk bunyikan suara
+    document.body.addEventListener("click", function() {
+      player.unMute();
+      player.playVideo();
+    }, {once:true});
+    event.target.playVideo();
+  }
+</script>
+</body>
+</html>
